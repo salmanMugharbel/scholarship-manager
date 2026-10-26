@@ -15,11 +15,11 @@ export interface PanelProps {
 }
 
 export const STATUS_COLORS: Record<string, string> = {
-  Researching: "bg-slate-100 text-slate-700",
-  Preparing: "bg-blue-100 text-blue-700",
-  Submitted: "bg-violet-100 text-violet-700",
-  Accepted: "bg-emerald-100 text-emerald-700",
-  Rejected: "bg-red-100 text-red-700",
+  Researching: "bg-slate-800 text-slate-200",
+  Preparing: "bg-blue-500/15 text-blue-300",
+  Submitted: "bg-violet-500/15 text-violet-300",
+  Accepted: "bg-emerald-500/15 text-emerald-300",
+  Rejected: "bg-red-500/15 text-red-300",
 };
 
 type Sort = "deadline" | "name" | "added";
@@ -96,20 +96,20 @@ export default function ScholarshipList({ data, reload, supabase }: PanelProps) 
       </div>
 
       {closedCount > 0 && (
-        <label className="flex items-center gap-2 text-sm text-slate-500 mb-4">
+        <label className="flex items-center gap-2 text-sm text-slate-400 mb-4">
           <input type="checkbox" checked={showClosed} onChange={(e) => setShowClosed(e.target.checked)} />
           Show {closedCount} closed scholarship{closedCount > 1 ? "s" : ""}
         </label>
       )}
 
       {data.scholarships.length === 0 ? (
-        <div className="card p-10 text-center text-slate-500">
+        <div className="card p-10 text-center text-slate-400">
           <p className="text-4xl mb-3">📭</p>
-          <p className="font-medium text-slate-700">No scholarships yet</p>
+          <p className="font-medium text-slate-200">No scholarships yet</p>
           <p className="text-sm">Add one manually, or use the AI Prompt tab and paste the result in Import.</p>
         </div>
       ) : visible.length === 0 ? (
-        <p className="text-slate-500 text-sm">No scholarships match your filters.</p>
+        <p className="text-slate-400 text-sm">No scholarships match your filters.</p>
       ) : (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {visible.map((s) => (
@@ -145,30 +145,30 @@ function ScholarshipCard({
 }) {
   const pct = progress.total ? Math.round((progress.ready / progress.total) * 100) : 0;
   return (
-    <button onClick={onClick} className="card p-4 text-left hover:border-indigo-300 hover:shadow-md transition cursor-pointer flex flex-col">
+    <button onClick={onClick} className="card p-4 text-left hover:border-indigo-500 hover:shadow-md transition cursor-pointer flex flex-col">
       <div className="flex items-start justify-between gap-2 mb-2">
         <h3 className="font-semibold leading-snug">{s.name}</h3>
         <span className={`badge ${deadlineColor(s.deadline)}`}>{deadlineLabel(s.deadline)}</span>
       </div>
-      <p className="text-sm text-slate-500 mb-3">
+      <p className="text-sm text-slate-400 mb-3">
         {[s.country, s.provider].filter(Boolean).join(" · ") || "—"}
       </p>
       <div className="flex flex-wrap gap-1.5 mb-3">
         <span className={`badge ${STATUS_COLORS[s.status]}`}>{s.status}</span>
-        {s.funding_type && <span className="badge bg-amber-50 text-amber-700">{s.funding_type} funding</span>}
-        {s.verified && <span className="badge bg-emerald-50 text-emerald-700">✓ Verified</span>}
+        {s.funding_type && <span className="badge bg-amber-500/10 text-amber-300">{s.funding_type} funding</span>}
+        {s.verified && <span className="badge bg-emerald-500/10 text-emerald-300">✓ Verified</span>}
         {s.syrian_eligible?.toLowerCase().startsWith("unclear") && (
-          <span className="badge bg-yellow-100 text-yellow-800">⚠ Eligibility unclear</span>
+          <span className="badge bg-yellow-500/15 text-yellow-300">⚠ Eligibility unclear</span>
         )}
       </div>
-      <div className="mt-auto text-xs text-slate-500">
+      <div className="mt-auto text-xs text-slate-400">
         <div className="flex justify-between mb-1">
           <span>Deadline: {formatDate(s.deadline)}</span>
           <span>
             Docs {progress.ready}/{progress.total}
           </span>
         </div>
-        <div className="h-1.5 rounded-full bg-slate-100 overflow-hidden">
+        <div className="h-1.5 rounded-full bg-slate-800 overflow-hidden">
           <div className="h-full bg-indigo-500" style={{ width: `${pct}%` }} />
         </div>
       </div>

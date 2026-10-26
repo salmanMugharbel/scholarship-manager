@@ -22,14 +22,14 @@ export default function Modal({
   }, [onClose]);
 
   return (
-    <div className="fixed inset-0 z-50 flex items-start sm:items-center justify-center bg-slate-900/40 p-0 sm:p-4" onClick={onClose}>
+    <div className="fixed inset-0 z-50 flex items-start sm:items-center justify-center bg-black/60 p-0 sm:p-4" onClick={onClose}>
       <div
-        className="bg-white w-full sm:max-w-2xl sm:rounded-2xl shadow-xl max-h-screen sm:max-h-[90vh] flex flex-col"
+        className="bg-slate-900 w-full sm:max-w-2xl sm:rounded-2xl shadow-xl max-h-screen sm:max-h-[90vh] flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-start justify-between gap-4 border-b border-slate-200 px-5 py-4">
+        <div className="flex items-start justify-between gap-4 border-b border-slate-800 px-5 py-4">
           <div className="font-semibold text-lg leading-snug">{title}</div>
-          <button onClick={onClose} className="text-slate-400 hover:text-slate-700 text-xl leading-none cursor-pointer" aria-label="Close">
+          <button onClick={onClose} className="text-slate-500 hover:text-slate-200 text-xl leading-none cursor-pointer" aria-label="Close">
             ×
           </button>
         </div>

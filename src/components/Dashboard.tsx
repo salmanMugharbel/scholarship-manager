@@ -69,22 +69,22 @@ export default function Dashboard() {
       <header className="flex flex-wrap items-center justify-between gap-3 mb-6">
         <div>
           <h1 className="text-2xl font-bold">🎓 Scholarship Manager</h1>
-          <p className="text-sm text-slate-500">
+          <p className="text-sm text-slate-400">
             {data.scholarships.length} scholarships · {pendingDocs} documents to prepare
           </p>
         </div>
         <button onClick={signOut} className="btn-secondary">🔒 Lock</button>
       </header>
 
-      <nav className="flex gap-1 overflow-x-auto border-b border-slate-200 mb-6">
+      <nav className="flex gap-1 overflow-x-auto border-b border-slate-800 mb-6">
         {TABS.map((t) => (
           <button
             key={t.id}
             onClick={() => setTab(t.id)}
             className={`px-4 py-2 text-sm font-medium whitespace-nowrap border-b-2 -mb-px cursor-pointer ${
               tab === t.id
-                ? "border-indigo-600 text-indigo-700"
-                : "border-transparent text-slate-500 hover:text-slate-800"
+                ? "border-indigo-600 text-indigo-300"
+                : "border-transparent text-slate-400 hover:text-slate-100"
             }`}
           >
             {t.label}
@@ -92,10 +92,10 @@ export default function Dashboard() {
         ))}
       </nav>
 
-      {error && <div className="card border-red-200 bg-red-50 text-red-700 p-4 mb-6 text-sm">{error}</div>}
+      {error && <div className="card border-red-500/40 bg-red-500/10 text-red-300 p-4 mb-6 text-sm">{error}</div>}
 
       {loading ? (
-        <p className="text-slate-500">Loading...</p>
+        <p className="text-slate-400">Loading...</p>
       ) : (
         <>
           {tab === "scholarships" && <ScholarshipList data={data} reload={reload} supabase={supabase} />}

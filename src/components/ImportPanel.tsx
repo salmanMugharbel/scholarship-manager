@@ -54,7 +54,7 @@ export default function ImportPanel({ data, reload, supabase, onDone }: PanelPro
 
   return (
     <div className="max-w-3xl">
-      <p className="text-sm text-slate-600 mb-3">
+      <p className="text-sm text-slate-300 mb-3">
         Paste the AI&apos;s JSON reply below. You&apos;ll see a preview before anything is saved.
       </p>
       <textarea
@@ -65,7 +65,7 @@ export default function ImportPanel({ data, reload, supabase, onDone }: PanelPro
         placeholder='{ "scholarships": [ ... ] }'
       />
       <button onClick={preview} disabled={!raw.trim()} className="btn-primary mb-4">Preview</button>
-      {error && <p className="text-sm text-red-600 mb-4">{error}</p>}
+      {error && <p className="text-sm text-red-400 mb-4">{error}</p>}
 
       {parsed && (
         <div>
@@ -82,9 +82,9 @@ export default function ImportPanel({ data, reload, supabase, onDone }: PanelPro
                     <div className="flex flex-wrap items-center gap-2">
                       <span className="font-medium">{s.name}</span>
                       <span className={`badge ${deadlineColor(s.deadline)}`}>{deadlineLabel(s.deadline)}</span>
-                      {dup && <span className="badge bg-yellow-100 text-yellow-800">Already added</span>}
+                      {dup && <span className="badge bg-yellow-500/15 text-yellow-300">Already added</span>}
                     </div>
-                    <p className="text-xs text-slate-500">
+                    <p className="text-xs text-slate-400">
                       {[s.country, s.funding_type, formatDate(s.deadline)].filter(Boolean).join(" · ")} ·{" "}
                       {s.required_documents.length} documents
                     </p>

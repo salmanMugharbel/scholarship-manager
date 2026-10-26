@@ -20,11 +20,11 @@ export function deadlineLabel(deadline: string | null): string {
 // Tailwind classes for the countdown badge: red < 7 days, orange < 30, green otherwise
 export function deadlineColor(deadline: string | null): string {
   const days = daysLeft(deadline);
-  if (days === null) return "bg-slate-100 text-slate-600";
-  if (days < 0) return "bg-slate-200 text-slate-500 line-through";
-  if (days < 7) return "bg-red-100 text-red-700";
-  if (days < 30) return "bg-orange-100 text-orange-700";
-  return "bg-emerald-100 text-emerald-700";
+  if (days === null) return "bg-slate-800 text-slate-300";
+  if (days < 0) return "bg-slate-700 text-slate-400 line-through";
+  if (days < 7) return "bg-red-500/15 text-red-300";
+  if (days < 30) return "bg-orange-500/15 text-orange-300";
+  return "bg-emerald-500/15 text-emerald-300";
 }
 
 export function formatDate(date: string | null): string {

@@ -27,10 +27,10 @@ export default function LoginPage() {
 
   return (
     <main className="min-h-screen flex items-center justify-center p-4">
-      <div className="w-full max-w-sm bg-white rounded-2xl shadow-sm border border-slate-200 p-8">
+      <div className="w-full max-w-sm bg-slate-900 rounded-2xl shadow-sm border border-slate-800 p-8">
         <div className="text-3xl mb-2">🎓</div>
         <h1 className="text-xl font-semibold mb-1">Scholarship Manager</h1>
-        <p className="text-sm text-slate-500 mb-6">Enter your password. This device will stay unlocked.</p>
+        <p className="text-sm text-slate-400 mb-6">Enter your password. This device will stay unlocked.</p>
 
         <form onSubmit={unlock} className="space-y-3">
           <input
@@ -45,7 +45,7 @@ export default function LoginPage() {
           <button type="submit" disabled={busy} className="btn-primary w-full">
             {busy ? "Unlocking..." : "Unlock"}
           </button>
-          {error && <p className="text-sm text-red-600">{error}</p>}
+          {error && <p className="text-sm text-red-400">{error}</p>}
         </form>
       </div>
     </main>

@@ -154,7 +154,7 @@ export default function ScholarshipForm({
                 className={`badge border cursor-pointer py-1 px-3 ${
                   docs.includes(name)
                     ? "bg-indigo-600 border-indigo-600 text-white"
-                    : "bg-white border-slate-300 text-slate-600"
+                    : "bg-slate-900 border-slate-700 text-slate-300"
                 }`}
               >
                 {docs.includes(name) ? "✓ " : ""}
@@ -182,7 +182,7 @@ export default function ScholarshipForm({
           </div>
         </div>
 
-        <div className="flex justify-end gap-2 border-t border-slate-100 pt-4">
+        <div className="flex justify-end gap-2 border-t border-slate-800 pt-4">
           <button type="button" onClick={onClose} className="btn-secondary">Cancel</button>
           <button type="submit" disabled={saving} className="btn-primary">{saving ? "Saving..." : "Save"}</button>
         </div>

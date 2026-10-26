@@ -61,7 +61,7 @@ export default function ScholarshipDetail({
             <option key={st}>{st}</option>
           ))}
         </select>
-        <label className="flex items-center gap-1.5 text-sm text-slate-600 ml-auto">
+        <label className="flex items-center gap-1.5 text-sm text-slate-300 ml-auto">
           <input type="checkbox" checked={s.verified} onChange={(e) => update({ verified: e.target.checked })} />
           I checked the deadline on the official site
         </label>
@@ -96,11 +96,11 @@ export default function ScholarshipDetail({
       <section className="mb-5">
         <h4 className="font-medium mb-2">Required documents ({docs.filter((d) => d.status === "Ready").length}/{docs.length} ready)</h4>
         {docs.length === 0 ? (
-          <p className="text-sm text-slate-500">No documents linked. Use Edit to add them.</p>
+          <p className="text-sm text-slate-400">No documents linked. Use Edit to add them.</p>
         ) : (
           <ul className="space-y-1.5">
             {docs.map((d) => (
-              <li key={d.id} className="flex items-center justify-between text-sm rounded-lg bg-slate-50 px-3 py-2">
+              <li key={d.id} className="flex items-center justify-between text-sm rounded-lg bg-slate-800/60 px-3 py-2">
                 <span>{d.status === "Ready" ? "✅" : "⬜"} {d.name}</span>
                 <span className={`badge ${DOC_STATUS_COLORS[d.status]}`}>{d.status}</span>
               </li>
@@ -114,7 +114,7 @@ export default function ScholarshipDetail({
           <h4 className="font-medium mb-2">Tasks</h4>
           <ul className="space-y-1 text-sm">
             {tasks.map((t) => (
-              <li key={t.id} className={t.done ? "line-through text-slate-400" : ""}>
+              <li key={t.id} className={t.done ? "line-through text-slate-500" : ""}>
                 {t.done ? "✅" : "⬜"} {t.title}
               </li>
             ))}
@@ -134,7 +134,7 @@ export default function ScholarshipDetail({
         />
       </section>
 
-      <div className="flex gap-2 justify-end border-t border-slate-100 pt-4">
+      <div className="flex gap-2 justify-end border-t border-slate-800 pt-4">
         <button onClick={remove} className="btn-danger mr-auto">Delete</button>
         <button onClick={() => setEditing(true)} className="btn-primary">Edit</button>
       </div>

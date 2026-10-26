@@ -33,7 +33,7 @@ export default function PromptPanel({ onGoToImport }: { onGoToImport: () => void
 
   return (
     <div className="max-w-3xl">
-      <ol className="text-sm text-slate-600 mb-4 list-decimal list-inside space-y-1">
+      <ol className="text-sm text-slate-300 mb-4 list-decimal list-inside space-y-1">
         <li>Fill in the <b>[brackets]</b> below with your details (you can edit right here).</li>
         <li>Copy the prompt into an AI <b>with web search</b> (ChatGPT search, Perplexity, Gemini, Claude).</li>
         <li>Copy the AI&apos;s JSON reply and paste it in the <b>Import</b> tab.</li>

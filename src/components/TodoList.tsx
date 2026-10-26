@@ -6,9 +6,9 @@ import { DOCUMENT_STATUSES, type DocumentItem, type Task } from "@/lib/types";
 import { daysLeft, deadlineColor, deadlineLabel, formatDate } from "@/lib/deadline";
 
 export const DOC_STATUS_COLORS: Record<string, string> = {
-  "Not started": "bg-slate-100 text-slate-600",
-  "In progress": "bg-amber-100 text-amber-700",
-  Ready: "bg-emerald-100 text-emerald-700",
+  "Not started": "bg-slate-800 text-slate-300",
+  "In progress": "bg-amber-500/15 text-amber-300",
+  Ready: "bg-emerald-500/15 text-emerald-300",
 };
 
 export default function TodoList(props: PanelProps) {
@@ -60,9 +60,9 @@ function DocumentsSection({ data, reload, supabase }: PanelProps) {
     <section>
       <div className="flex items-center justify-between mb-3">
         <h2 className="text-lg font-semibold">
-          📄 Documents <span className="text-sm font-normal text-slate-500">({readyCount}/{data.documents.length} ready)</span>
+          📄 Documents <span className="text-sm font-normal text-slate-400">({readyCount}/{data.documents.length} ready)</span>
         </h2>
-        <label className="flex items-center gap-1.5 text-sm text-slate-500">
+        <label className="flex items-center gap-1.5 text-sm text-slate-400">
           <input type="checkbox" checked={hideReady} onChange={(e) => setHideReady(e.target.checked)} />
           Hide ready
         </label>
@@ -74,7 +74,7 @@ function DocumentsSection({ data, reload, supabase }: PanelProps) {
       </form>
 
       {rows.length === 0 ? (
-        <p className="text-sm text-slate-500 card p-6 text-center">
+        <p className="text-sm text-slate-400 card p-6 text-center">
           No documents yet. They appear here automatically when you add or import scholarships.
         </p>
       ) : (
@@ -171,13 +171,13 @@ function DocumentRow({
       </div>
 
       {scholarships.length > 0 && (
-        <p className="text-xs text-slate-500 mb-3">
+        <p className="text-xs text-slate-400 mb-3">
           For: {scholarships.map((s) => `${s.name} (${formatDate(s.deadline)})`).join(" · ")}
         </p>
       )}
 
       <div className="flex flex-wrap items-center gap-2 text-sm">
-        <label className="flex items-center gap-1 text-xs text-slate-500">
+        <label className="flex items-center gap-1 text-xs text-slate-400">
           My due date
           <input
             type="date"
@@ -194,17 +194,17 @@ function DocumentRow({
         />
         {doc.file_path ? (
           <>
-            <button onClick={viewFile} className="text-indigo-600 hover:underline cursor-pointer truncate max-w-48">
+            <button onClick={viewFile} className="text-indigo-400 hover:underline cursor-pointer truncate max-w-48">
               📎 {doc.file_name}
             </button>
-            <button onClick={removeFile} className="text-xs text-slate-400 hover:text-red-600 cursor-pointer">remove</button>
+            <button onClick={removeFile} className="text-xs text-slate-500 hover:text-red-400 cursor-pointer">remove</button>
           </>
         ) : (
           <button onClick={() => fileInput.current?.click()} disabled={uploading} className="btn-secondary py-1 px-3 text-xs">
             {uploading ? "Uploading..." : "📤 Upload file"}
           </button>
         )}
-        <button onClick={removeDoc} className="text-xs text-slate-400 hover:text-red-600 ml-auto cursor-pointer">Delete</button>
+        <button onClick={removeDoc} className="text-xs text-slate-500 hover:text-red-400 ml-auto cursor-pointer">Delete</button>
       </div>
     </li>
   );
@@ -259,7 +259,7 @@ function TasksSection({ data, reload, supabase }: PanelProps) {
       </form>
 
       {tasks.length === 0 ? (
-        <p className="text-sm text-slate-500">No tasks yet.</p>
+        <p className="text-sm text-slate-400">No tasks yet.</p>
       ) : (
         <ul className="space-y-2">
           {tasks.map((t) => {
@@ -268,17 +268,17 @@ function TasksSection({ data, reload, supabase }: PanelProps) {
               <li key={t.id} className="card px-3 py-2 flex items-start gap-2 text-sm">
                 <input type="checkbox" checked={t.done} onChange={() => toggle(t)} className="mt-1" />
                 <div className="flex-1">
-                  <p className={t.done ? "line-through text-slate-400" : ""}>{t.title}</p>
-                  <p className="text-xs text-slate-500">
+                  <p className={t.done ? "line-through text-slate-500" : ""}>{t.title}</p>
+                  <p className="text-xs text-slate-400">
                     {t.due_date && (
-                      <span className={`badge mr-1 ${t.done ? "bg-slate-100 text-slate-500" : deadlineColor(t.due_date)}`}>
+                      <span className={`badge mr-1 ${t.done ? "bg-slate-800 text-slate-400" : deadlineColor(t.due_date)}`}>
                         {formatDate(t.due_date)}
                       </span>
                     )}
                     {s?.name}
                   </p>
                 </div>
-                <button onClick={() => remove(t)} className="text-slate-400 hover:text-red-600 cursor-pointer">×</button>
+                <button onClick={() => remove(t)} className="text-slate-500 hover:text-red-400 cursor-pointer">×</button>
               </li>
             );
           })}
