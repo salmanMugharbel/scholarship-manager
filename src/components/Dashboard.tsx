@@ -29,7 +29,6 @@ export default function Dashboard() {
   const [data, setData] = useState<AppData>({ scholarships: [], documents: [], links: [], tasks: [] });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [email, setEmail] = useState("");
 
   const reload = useCallback(async () => {
     const [s, d, l, t] = await Promise.all([
@@ -54,8 +53,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     reload();
-    supabase.auth.getUser().then(({ data }) => setEmail(data.user?.email ?? ""));
-  }, [reload, supabase]);
+  }, [reload]);
 
   async function signOut() {
     await supabase.auth.signOut();
@@ -75,10 +73,7 @@ export default function Dashboard() {
             {data.scholarships.length} scholarships · {pendingDocs} documents to prepare
           </p>
         </div>
-        <div className="flex items-center gap-3 text-sm">
-          <span className="text-slate-500 hidden sm:inline">{email}</span>
-          <button onClick={signOut} className="btn-secondary">Sign out</button>
-        </div>
+        <button onClick={signOut} className="btn-secondary">🔒 Lock</button>
       </header>
 
       <nav className="flex gap-1 overflow-x-auto border-b border-slate-200 mb-6">

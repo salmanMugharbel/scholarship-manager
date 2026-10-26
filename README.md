@@ -9,21 +9,20 @@ Built with Next.js, Tailwind CSS and Supabase; deployed on Vercel.
 - **Add manually** or **import from AI**: copy the prompt from the *AI Prompt* tab, paste the AI's JSON reply into *Import*
 - **To-do list**: every document needed across all scholarships, listed once, sorted by the nearest deadline that needs it, with status and file upload
 - **Other tasks** (e.g. "email professor"), optionally linked to a scholarship
-- Magic-link email login; each user only sees their own data (Row Level Security)
+- Single-user password lock (one password, remembered per device); data and files stay private via Row Level Security
 
 ## Setup
 
 ### 1. Supabase
 
 1. In the Supabase dashboard open **SQL Editor → New query**, paste the contents of [`supabase/schema.sql`](supabase/schema.sql) and click **Run**.
-2. Go to **Authentication → URL Configuration**:
-   - **Site URL**: your Vercel URL (e.g. `https://scholarship-manager.vercel.app`), or `http://localhost:3000` until you deploy
-   - **Redirect URLs**: add `http://localhost:3000/**` and `https://<your-vercel-url>/**`
+2. **Authentication → Users → Add user → Create new user**: enter your email and the password you want for the site, and tick **Auto Confirm User**.
+3. **Authentication → Sign In / Providers**: turn off **Allow new users to sign up**, so nobody else can create an account.
 
 ### 2. Run locally
 
 ```bash
-cp .env.example .env.local   # then fill in your Supabase URL and publishable key
+cp .env.example .env.local   # then fill in the Supabase URL, publishable key and OWNER_EMAIL
 npm install
 npm run dev
 ```
@@ -36,7 +35,7 @@ Open http://localhost:3000.
 2. Under **Environment Variables** add:
    - `NEXT_PUBLIC_SUPABASE_URL`
    - `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
+   - `OWNER_EMAIL` (the email of the user you created in step 1.2)
 3. Click **Deploy**. Every push to `main` redeploys automatically.
-4. Add the Vercel URL to Supabase's Site URL / Redirect URLs (step 1.2).
 
 > Never put the Supabase **secret** key in this project — the publishable key plus Row Level Security is all the app needs.

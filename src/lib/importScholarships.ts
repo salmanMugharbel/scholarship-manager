@@ -28,14 +28,42 @@ function text(value: unknown): string | null {
   return s && s.toLowerCase() !== "null" ? s : null;
 }
 
-// Accepts the AI's reply as-is: tolerates ```json fences and text around the JSON.
-export function parseAiJson(raw: string): ParsedScholarship[] {
-  const cleaned = raw.replace(/```(?:json)?/gi, "").trim();
+function decodeHtmlEntities(s: string): string {
+  const named: Record<string, string> = { amp: "&", quot: '"', apos: "'", lt: "<", gt: ">", nbsp: " " };
+  return s.replace(/&(#x[0-9a-f]+|#\d+|[a-z]+);/gi, (match, code: string) => {
+    if (code[0] === "#") {
+      const n = code[1].toLowerCase() === "x" ? parseInt(code.slice(2), 16) : parseInt(code.slice(1), 10);
+      return String.fromCodePoint(n);
+    }
+    return named[code.toLowerCase()] ?? match;
+  });
+}
+
+// Text copied out of a chat app is often Markdown-escaped: "\" at line ends, "https\://www\.",
+// "&#x20;" for spaces, curly quotes. Undo that, keeping valid JSON escapes like \" and \n.
+function repairCopiedJson(s: string): string {
+  return decodeHtmlEntities(s)
+    .replace(/ /g, " ")
+    .replace(/\\(["\\/bfnrt]|u[0-9a-fA-F]{4})|\\([\s\S])/g, (match, valid, other) => (valid ? match : other))
+    .replace(/[“”„]/g, '"');
+}
+
+function extractJson(s: string): string {
+  const cleaned = s.replace(/```(?:json)?/gi, "").trim();
   const start = cleaned.search(/[[{]/);
   const end = Math.max(cleaned.lastIndexOf("}"), cleaned.lastIndexOf("]"));
   if (start === -1 || end === -1) throw new Error("No JSON found in the pasted text.");
+  return cleaned.slice(start, end + 1);
+}
 
-  const data = JSON.parse(cleaned.slice(start, end + 1));
+// Accepts the AI's reply as-is: tolerates ```json fences, text around the JSON and copy/paste escaping.
+export function parseAiJson(raw: string): ParsedScholarship[] {
+  let data;
+  try {
+    data = JSON.parse(extractJson(raw));
+  } catch {
+    data = JSON.parse(extractJson(repairCopiedJson(raw)));
+  }
   const list: unknown[] = Array.isArray(data) ? data : data?.scholarships;
   if (!Array.isArray(list)) throw new Error('Expected a "scholarships" list in the JSON.');
 
